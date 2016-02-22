@@ -51,36 +51,36 @@ int DCB_EXT_Read(unsigned char *read_buffer, int bytes_to_read)
 
 int main()
 {
-	int i;
-	//unsigned int test_in[100] = {0};
-	unsigned char test_in[100] = {0};
-	unsigned char test_out[100] = {0};
+   int i;
+   //unsigned int test_in[100] = {0};
+   unsigned char test_in[100] = {0};
+   unsigned char test_out[100] = {0};
 	
-	for (i = 0; i < 100; i++)
-	{
-		test_in[i] = (unsigned char)i;
-	}
+   for (i = 0; i < 100; i++)
+   {
+      test_in[i] = (unsigned char)i;
+   }
 
-	event_create(&hOutDataAvaiable);
-	InitDcb();
+   event_create(&hOutDataAvaiable);
+   InitDcb();
 	
-	while(1)
-	{
-		/* thread a send data */
-		DCB_EXT_Send((unsigned char*) test_in, sizeof(test_in));
-		
-		/* thread b received data */
-		event_wait(&hOutDataAvaiable);
-		DCB_EXT_Read(test_out, sizeof(test_out));
-		
-		int cnt = 0;
-		for (i = 0; i < 100; i++)
-	  {
-		  printf("%d ", (int)test_out[i]);
-		  cnt++;
-		  if(cnt % 10 == 0)
-		  	printf("\n");
-	  }
+   while(1)
+   {
+      /* thread a send data */
+      DCB_EXT_Send((unsigned char*) test_in, sizeof(test_in));
+	
+      /* thread b received data */
+      event_wait(&hOutDataAvaiable);
+      DCB_EXT_Read(test_out, sizeof(test_out));
 
-	}
+      int cnt = 0;
+      for (i = 0; i < 100; i++)
+      {
+      	printf("%d ", (int)test_out[i]);
+      	cnt++;
+      	if(cnt % 10 == 0)
+      	   printf("\n");
+      }
+
+   }
 }
