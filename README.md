@@ -1,5 +1,5 @@
 # queue_tester
-A simple queue for data inout
+A simple queue for data inout, free using
 
 ##Compile and Run:
 
